@@ -44,10 +44,10 @@ if __name__ == '__main__':
 
     if (answ == 1):
         print("Cамый большой бар: ", get_biggest_bar(load_data(sys.argv[1])))
-    elif (answ == 2):
+    elif (answ == 2): 
         print("Самый маленький бар: ", get_smallest_bar(load_data(sys.argv[1])))
     elif (answ == 3):
         userCoord = [float(u_coord) for u_coord in input('Ввведите координаты через запятую: ').split(',')]
         print("Ближайший бар: ", get_closest_bar(load_data(sys.argv[1]), userCoord[0], userCoord[1]))
     else:
-        print("Некорректный формат ввода данных")
+        print("Некорректный формат ввода данных!")
