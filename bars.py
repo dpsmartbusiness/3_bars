@@ -50,11 +50,17 @@ if __name__ == '__main__':
         input("Задайте требуемый критерий для поиска цифрой от 1го до 3х: \n"))
 
     if (answ == 1):
+<<<<<<< HEAD
         print("Cамый большой бар: ",
               get_biggest_bar(load_data(sys.argv[1])))
     elif (answ == 2):
         print("Самый маленький бар: ",
               get_smallest_bar(load_data(sys.argv[1])))
+=======
+        print("Cамый большой бар: ", get_biggest_bar(load_data(sys.argv[1])))
+    elif (answ == 2): 
+        print("Самый маленький бар: ", get_smallest_bar(load_data(sys.argv[1])))
+>>>>>>> fc912cefabdb0c90c9b4b38de722444763893dd2
     elif (answ == 3):
         user_Coord = [float(u_coord) for u_coord in
                      input('Ввведите координаты через запятую: ').split(',')]
@@ -62,4 +68,8 @@ if __name__ == '__main__':
               get_closest_bar(load_data(sys.argv[1]), user_Coord[0],
                               user_Coord[1]))
     else:
+<<<<<<< HEAD
         print("Некорректный формат ввода данных")
+=======
+        print("Некорректный формат ввода данных!")
+>>>>>>> fc912cefabdb0c90c9b4b38de722444763893dd2
