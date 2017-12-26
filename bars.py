@@ -35,9 +35,9 @@ def get_closest_bar(bars, longitude, latitude):
     return c_bar.get(min(c_bar.keys()))
 
 
-def get_min(l1, l2):
-    a = l2[0] - l1[0]
-    b = l2[1] - l1[1]
+def get_min(l_1, l_2):
+    a = l_2[0] - l_1[0]
+    b = l_2[1] - l_1[1]
     return abs(a + b)
 
 
@@ -56,10 +56,10 @@ if __name__ == '__main__':
         print("Самый маленький бар: ",
               get_smallest_bar(load_data(sys.argv[1])))
     elif (answ == 3):
-        user_Coord = [float(u_coord) for u_coord in
+        user_coord = [float(u_coord) for u_coord in
                       input('Ввведите координаты через запятую: ').split(',')]
         print("Ближайший бар: ",
-              get_closest_bar(load_data(sys.argv[1]), user_Coord[0],
-                              user_Coord[1]))
+              get_closest_bar(load_data(sys.argv[1]), user_coord[0],
+                              user_coord[1]))
     else:
         print("Некорректный формат ввода данных")
