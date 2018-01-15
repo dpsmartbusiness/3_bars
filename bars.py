@@ -4,62 +4,54 @@ import sys
 
 def load_data(file_path):
     with open(file_path, 'r') as opened_file:
-        unstructured_data = json.loads(opened_file.read())
-    return unstructured_data
+        data_file = json.load(opened_file)
+    return data_file
 
 
 def get_biggest_bar(bars):
-    b_bar = dict()
-    for bar in bars["features"]:
-        b_bar[bar["properties"]["Attributes"]["SeatsCount"]] = \
-            bar["properties"]["Attributes"]["Name"]
-    return b_bar.get(max(b_bar))
+    return max(bars,
+               key=lambda bar: bar['properties']['Attributes']['SeatsCount'])
 
 
 def get_smallest_bar(bars):
-    s_bar = dict()
-    for bar in bars["features"]:
-        s_bar[bar["properties"]["Attributes"]["SeatsCount"]] = \
-            bar["properties"]["Attributes"]["Name"]
-    return s_bar.get(min(s_bar))
+    return min(bars,
+               key=lambda bar: bar['properties']['Attributes']['SeatsCount'])
 
 
-def get_closest_bar(bars, longitude, latitude):
-    bar_coord = dict()
-    for bar in bars["features"]:
-        bar_coord[bar["properties"]["Attributes"]["Name"]] = \
-            bar['geometry']['coordinates']
-    c_bar = dict()
-    for bar_key in bar_coord.keys():
-        c_bar[get_min(bar_coord[bar_key], [longitude, latitude])] = bar_key
-    return c_bar.get(min(c_bar.keys()))
+def get_closest_bar(bars, user_longitude, user_latitude):
+    return min(bars, key=lambda bar: get_distance(
+        user_longitude, bar['geometry']['coordinates'][0],
+        user_latitude, bar['geometry']['coordinates'][1]))
 
 
-def get_min(l_1, l_2):
-    a = l_2[0] - l_1[0]
-    b = l_2[1] - l_1[1]
-    return abs(a + b)
-
+def get_distance(user_longitude, bar_longitude, user_latitude, bar_latitude):
+    distance = (user_longitude - bar_longitude) + (user_latitude - bar_latitude)
+    return abs(distance)
 
 if __name__ == '__main__':
+    loaded_data = load_data(sys.argv[1])
+    bars = loaded_data['features']
     print("Критерий для поиска бара: \n "
           "1. Самый большой бар \n "
           "2. Самый маленький бар \n "
           "3. Ближайший бар")
-    answ = int(
-        input("Задайте требуемый критерий для поиска цифрой от 1го до 3х: \n"))
+    search_criteria = int(
+        input('Задайте требуемый критерий для поиска цифрой от 1го до 3х: \n'))
 
-    if (answ == 1):
-        print("Cамый большой бар: ",
-              get_biggest_bar(load_data(sys.argv[1])))
-    elif (answ == 2):
-        print("Самый маленький бар: ",
-              get_smallest_bar(load_data(sys.argv[1])))
-    elif (answ == 3):
-        user_coord = [float(u_coord) for u_coord in
-                      input('Ввведите координаты через запятую: ').split(',')]
-        print("Ближайший бар: ",
-              get_closest_bar(load_data(sys.argv[1]), user_coord[0],
-                              user_coord[1]))
+    if (search_criteria == 1):
+        print('Cамый большой бар: ',
+              get_biggest_bar(bars)['properties']['Attributes']['Name'])
+    elif (search_criteria == 2):
+        print('Самый маленький бар: ',
+              get_smallest_bar(bars)['properties']['Attributes']['Name'])
+    elif (search_criteria == 3):
+        print('Ввведите координаты вашего местоположения \n')
+        user_longitude = float(input('Ввведите долготу: \n'))
+        user_latitude = float(input('Ввведите широту: \n'))
+        print('Ближайший бар: ',get_closest_bar(
+            bars,
+            user_longitude,
+            user_latitude
+        )['properties']['Attributes']['Name'])
     else:
-        print("Некорректный формат ввода данных")
+        print('Некорректный формат ввода данных')
