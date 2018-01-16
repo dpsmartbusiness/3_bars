@@ -14,7 +14,7 @@ $ python bars.py # possibly requires call of python3 executive instead of just p
 
 ```
 
-Запуск на Windows происходит аналогично.Путь к файлу в формате JSON с описанием баров находится по [https://devman.org/media/filer_public/95/74/957441dc-78df-4c99-83b2-e93dfd13c2fa/bars.json](ссылке).
+Запуск на Windows происходит аналогично.Путь к файлу в формате JSON с описанием баров находится по [ссылке](https://devman.org/media/filer_public/95/74/957441dc-78df-4c99-83b2-e93dfd13c2fa/bars.json).
 
 Программа с консольным интерфейсом. После запуска программы, в консоли появится меню с вариантами действий. Пользователь вводит в консоль требуемый ему критерий для поиска бара.
 
