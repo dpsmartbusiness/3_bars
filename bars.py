@@ -42,6 +42,31 @@ def get_distance(user_longitude, bar_longitude, user_latitude, bar_latitude):
                 + (user_latitude - bar_latitude))
     return abs(distance)
 
+
+def get_search_result(search_criteria):
+    if (search_criteria == 1):
+        print('Cамый большой бар: ',
+              get_biggest_bar(
+                  bars
+              )['properties']['Attributes']['Name'])
+    elif (search_criteria == 2):
+        print('Самый маленький бар: ',
+              get_smallest_bar(
+                  bars
+              )['properties']['Attributes']['Name'])
+    elif (search_criteria == 3):
+        print('Ввведите координаты вашего местоположения \n')
+        user_longitude = float(input('Ввведите долготу: \n'))
+        user_latitude = float(input('Ввведите широту: \n'))
+        print('Ближайший бар: ',
+              get_closest_bar(
+                  bars,
+                  user_longitude,
+                  user_latitude
+              )['properties']['Attributes']['Name'])
+    else:
+        print("Неккоректно задан критерий поиска. Попробуйте снова")
+
 if __name__ == '__main__':
     try:
         loaded_data = load_data(sys.argv[1])
@@ -52,28 +77,7 @@ if __name__ == '__main__':
               "3. Ближайший бар")
         search_criteria = int(
             input('Задайте критерий для поиска цифрой от 1го до 3х: \n'))
-        if (search_criteria == 1):
-            print('Cамый большой бар: ',
-                  get_biggest_bar(
-                      bars
-                  )['properties']['Attributes']['Name'])
-        elif (search_criteria == 2):
-            print('Самый маленький бар: ',
-                  get_smallest_bar(
-                      bars
-                  )['properties']['Attributes']['Name'])
-        elif (search_criteria == 3):
-            print('Ввведите координаты вашего местоположения \n')
-            user_longitude = float(input('Ввведите долготу: \n'))
-            user_latitude = float(input('Ввведите широту: \n'))
-            print('Ближайший бар: ',
-                  get_closest_bar(
-                      bars,
-                      user_longitude,
-                      user_latitude
-                  )['properties']['Attributes']['Name'])
-        else:
-            print("Неккоректно задан критерий поиска. Попробуйте снова")
+        get_search_result(search_criteria)
     except FileNotFoundError:
         print('Некорректный путь к файлу.')
     except IndexError:
