@@ -11,24 +11,21 @@ def load_data(file_path):
 def get_biggest_bar(bars):
     return max(
         bars,
-        key=lambda bar:
-        bar['properties']['Attributes']['SeatsCount']
+        key=lambda bar: bar['properties']['Attributes']['SeatsCount']
     )
 
 
 def get_smallest_bar(bars):
     return min(
         bars,
-        key=lambda bar:
-        bar['properties']['Attributes']['SeatsCount']
+        key=lambda bar: bar['properties']['Attributes']['SeatsCount']
     )
 
 
 def get_closest_bar(bars, user_longitude, user_latitude):
     return min(
         bars,
-        key=lambda bar:
-        get_distance(
+        key=lambda bar: get_distance(
             user_longitude,
             bar['geometry']['coordinates'][0],
             user_latitude,
@@ -43,7 +40,7 @@ def get_distance(user_longitude, bar_longitude, user_latitude, bar_latitude):
     return abs(distance)
 
 
-def get_search_result(search_criteria):
+def print_search_result(search_criteria):
     if (search_criteria == 1):
         print('Cамый большой бар: ',
               get_biggest_bar(
@@ -77,7 +74,7 @@ if __name__ == '__main__':
               "3. Ближайший бар")
         search_criteria = int(
             input('Задайте критерий для поиска цифрой от 1го до 3х: \n'))
-        get_search_result(search_criteria)
+        print_search_result(search_criteria)
     except FileNotFoundError:
         print('Некорректный путь к файлу.')
     except IndexError:
